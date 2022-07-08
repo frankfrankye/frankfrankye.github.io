@@ -145,6 +145,84 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="https://frankfrankye.github.io/2022/07/08/%E4%BA%8C-%E5%A4%8D%E6%9D%82%E7%9A%84vue3%E5%92%8C%E5%A4%8D%E6%9D%82%E7%9A%84proxy/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Frank Ye, Shyang">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Frontend Blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2022/07/08/%E4%BA%8C-%E5%A4%8D%E6%9D%82%E7%9A%84vue3%E5%92%8C%E5%A4%8D%E6%9D%82%E7%9A%84proxy/" class="post-title-link" itemprop="url">(二)复杂的vue3和复杂的proxy</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+              
+
+              <time title="Created: 2022-07-08 23:34:37 / Modified: 23:35:03" itemprop="dateCreated datePublished" datetime="2022-07-08T23:34:37+08:00">2022-07-08</time>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h1 id="proxy"><a href="#proxy" class="headerlink" title="proxy"></a>proxy</h1><p>迁移到Vue3的时候，发现了一个非常高频经常出现的内容——proxy。</p>
+<h2 id="proxy是啥？"><a href="#proxy是啥？" class="headerlink" title="proxy是啥？"></a>proxy是啥？</h2><p>Proxy 可以理解成，在目标对象之前架设一层“拦截”，外界对该对象的访问，都必须先通过这层拦截，因此提供了一种机制，可以对外界的访问进行过滤和改写。<br>                                                    ————<a target="_blank" rel="noopener" href="https://es6.ruanyifeng.com/#docs/proxy">ECMAScript6 入门</a></p>
+<p>背八股文的时候了解到vue2实现数据双向绑定原理靠的是一个叫Object.defineProperty的东西，他对每一个属性进行了劫持，中间还有一些setter,getter,watch,compiler之类的内容，这些都不重要，因为vue3直接舍弃了这个东西。<br>我可以先总结一下Object.defineProperty的缺陷，以下都是从网上复制来的：<br>  **无法监听数组基于下标的修改，不支持 Map、Set、WeakMap 和 WeakSet等缺陷 **</p>
+<p>好的，我们知道这个东西的缺陷了，大概。</p>
+<h2 id="proxy的优缺点和实现"><a href="#proxy的优缺点和实现" class="headerlink" title="proxy的优缺点和实现"></a>proxy的优缺点和实现</h2><p>相对于 Object.defineProperty 需要对每一个属性进行劫持，Proxy 更加便捷，只需要劫持需要监听的对象即可。<br>proxy 的使用本身就是对于 对象的拦截， 通过new Proxy 的返回值，拦截了obj 对象<br>如此一来，当你 访问对象中的值的时候，他会触发 get 方法， 当你修改对象中的值的时候 他会触发 set方法</p>
+<p><em>你说proxy的缺点？</em><br>就使用来说就是每次调用的时候需要写上.value，以及解构的时候会丢失响应。</p>
+<p><strong>需要.value的原因</strong>？执行ref 的时候，如果是个原始值，他相当于会new 一个对象， 此时你的返回值就是一个对象，这个对象里面包含 一个value 属性 的get 和set 方法，这也是为什么你必须.value的原因<br><em>源码：</em><code>function createRef(rawValue: unknown, shallow: boolean) &#123; if (isRef(rawValue)) &#123; return rawValue &#125; return new RefImpl(rawValue, shallow) &#125;</code></p>
+<h2 id="什么情况下会丢失响应？"><a href="#什么情况下会丢失响应？" class="headerlink" title="什么情况下会丢失响应？"></a>什么情况下会丢失响应？</h2><ol>
+<li>解构 props 对象，因为它会失去响应式</li>
+<li>直接赋值reactive响应式对象</li>
+<li>vuex中组合API赋值</li>
+</ol>
+<p>1.</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">// 假设a是个响应式对象</span><br><span class="line">const a = &#123; b:1 &#125;</span><br><span class="line">// c 此时就是一个值，跟a 已经无关了</span><br><span class="line">const c = a.b</span><br><span class="line">// 直接访问c就相当于直接访问这个值 也就绕过了 a 对象的get ，也就失去了响应式</span><br></pre></td></tr></table></figure>
+
+<p>2.</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">// 当reactive 之后返回一个代理对象的地址被vue 存起来，</span><br><span class="line">// 用一个不恰当的比喻来说，就是这个地址具备响应式的能力</span><br><span class="line">const vue = reactive(&#123; a: 1 &#125;)</span><br><span class="line"></span><br><span class="line">//  而当你对于vue重新赋值的时候 不是将新的对象赋值给那个地址，而是将vue 换了个新地址</span><br><span class="line">//  而此时新地址不具备响应式，就失去响应式了</span><br><span class="line">//  因此vue直接不允许如此操作，如果给一个reactive的对象赋值会报“read-only”的错误</span><br><span class="line">vue = &#123; b: 2 &#125;</span><br></pre></td></tr></table></figure>
+
+<p>3.<br>store.state.count使用的时候需要用computed包住，不然会导致丢失响应</p>
+<h2 id="文献参考"><a href="#文献参考" class="headerlink" title="文献参考"></a>文献参考</h2><p><a target="_blank" rel="noopener" href="https://juejin.cn/post/7114596904926740493">juejin</a><br><a target="_blank" rel="noopener" href="https://es6.ruanyifeng.com/#docs/proxy">es6</a><br><a target="_blank" rel="noopener" href="https://blog.csdn.net/weixin_42854769/article/details/124185962">csdn</a></p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
     <link itemprop="mainEntityOfPage" href="https://frankfrankye.github.io/2022/07/04/%E6%B5%8B%E8%AF%95/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -472,7 +550,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">4</span>
+          <span class="site-state-item-count">5</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>

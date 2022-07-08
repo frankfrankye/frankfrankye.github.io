@@ -20,19 +20,19 @@
     var CONFIG = {"hostname":"frankfrankye.github.io","root":"/","scheme":"Muse","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
   </script>
 
-  <meta name="description" content="How I build my first blog with HexocontentWhat will i do with this blogcontent  Let’s get started!">
+  <meta name="description" content="proxy迁移到Vue3的时候，发现了一个非常高频经常出现的内容——proxy。 proxy是啥？Proxy 可以理解成，在目标对象之前架设一层“拦截”，外界对该对象的访问，都必须先通过这层拦截，因此提供了一种机制，可以对外界的访问进行过滤和改写。                                                    ————ECMAScript6 入门 背八股文的">
 <meta property="og:type" content="article">
-<meta property="og:title" content="init my blog">
-<meta property="og:url" content="https://frankfrankye.github.io/2022/07/03/init-my-blog/index.html">
+<meta property="og:title" content="(二)复杂的vue3和复杂的proxy">
+<meta property="og:url" content="https://frankfrankye.github.io/2022/07/08/%E4%BA%8C-%E5%A4%8D%E6%9D%82%E7%9A%84vue3%E5%92%8C%E5%A4%8D%E6%9D%82%E7%9A%84proxy/index.html">
 <meta property="og:site_name" content="Frontend Blog">
-<meta property="og:description" content="How I build my first blog with HexocontentWhat will i do with this blogcontent  Let’s get started!">
+<meta property="og:description" content="proxy迁移到Vue3的时候，发现了一个非常高频经常出现的内容——proxy。 proxy是啥？Proxy 可以理解成，在目标对象之前架设一层“拦截”，外界对该对象的访问，都必须先通过这层拦截，因此提供了一种机制，可以对外界的访问进行过滤和改写。                                                    ————ECMAScript6 入门 背八股文的">
 <meta property="og:locale" content="en_US">
-<meta property="article:published_time" content="2022-07-03T13:52:10.000Z">
-<meta property="article:modified_time" content="2022-07-03T14:35:41.974Z">
+<meta property="article:published_time" content="2022-07-08T15:34:37.000Z">
+<meta property="article:modified_time" content="2022-07-08T15:35:03.470Z">
 <meta property="article:author" content="Frank Ye, Shyang">
 <meta name="twitter:card" content="summary">
 
-<link rel="canonical" href="https://frankfrankye.github.io/2022/07/03/init-my-blog/">
+<link rel="canonical" href="https://frankfrankye.github.io/2022/07/08/%E4%BA%8C-%E5%A4%8D%E6%9D%82%E7%9A%84vue3%E5%92%8C%E5%A4%8D%E6%9D%82%E7%9A%84proxy/">
 
 
 <script id="page-configurations">
@@ -45,7 +45,7 @@
   };
 </script>
 
-  <title>init my blog | Frontend Blog</title>
+  <title>(二)复杂的vue3和复杂的proxy | Frontend Blog</title>
   
 
 
@@ -150,7 +150,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
-    <link itemprop="mainEntityOfPage" href="https://frankfrankye.github.io/2022/07/03/init-my-blog/">
+    <link itemprop="mainEntityOfPage" href="https://frankfrankye.github.io/2022/07/08/%E4%BA%8C-%E5%A4%8D%E6%9D%82%E7%9A%84vue3%E5%92%8C%E5%A4%8D%E6%9D%82%E7%9A%84proxy/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.gif">
@@ -163,7 +163,7 @@
     </span>
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
-          init my blog
+          (二)复杂的vue3和复杂的proxy
         </h1>
 
         <div class="post-meta">
@@ -174,7 +174,7 @@
               <span class="post-meta-item-text">Posted on</span>
               
 
-              <time title="Created: 2022-07-03 21:52:10 / Modified: 22:35:41" itemprop="dateCreated datePublished" datetime="2022-07-03T21:52:10+08:00">2022-07-03</time>
+              <time title="Created: 2022-07-08 23:34:37 / Modified: 23:35:03" itemprop="dateCreated datePublished" datetime="2022-07-08T23:34:37+08:00">2022-07-08</time>
             </span>
 
           
@@ -188,9 +188,27 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <h2 id="How-I-build-my-first-blog-with-Hexo"><a href="#How-I-build-my-first-blog-with-Hexo" class="headerlink" title="How I build my first blog with Hexo"></a>How I build my first blog with Hexo</h2><h2 id="content"><a href="#content" class="headerlink" title="content"></a>content</h2><h2 id="What-will-i-do-with-this-blog"><a href="#What-will-i-do-with-this-blog" class="headerlink" title="What will i do with this blog"></a>What will i do with this blog</h2><p>content</p>
-<hr>
-<h2 id="Let’s-get-started"><a href="#Let’s-get-started" class="headerlink" title="Let’s get started!"></a>Let’s get started!</h2>
+        <h1 id="proxy"><a href="#proxy" class="headerlink" title="proxy"></a>proxy</h1><p>迁移到Vue3的时候，发现了一个非常高频经常出现的内容——proxy。</p>
+<h2 id="proxy是啥？"><a href="#proxy是啥？" class="headerlink" title="proxy是啥？"></a>proxy是啥？</h2><p>Proxy 可以理解成，在目标对象之前架设一层“拦截”，外界对该对象的访问，都必须先通过这层拦截，因此提供了一种机制，可以对外界的访问进行过滤和改写。<br>                                                    ————<a target="_blank" rel="noopener" href="https://es6.ruanyifeng.com/#docs/proxy">ECMAScript6 入门</a></p>
+<p>背八股文的时候了解到vue2实现数据双向绑定原理靠的是一个叫Object.defineProperty的东西，他对每一个属性进行了劫持，中间还有一些setter,getter,watch,compiler之类的内容，这些都不重要，因为vue3直接舍弃了这个东西。<br>我可以先总结一下Object.defineProperty的缺陷，以下都是从网上复制来的：<br>  **无法监听数组基于下标的修改，不支持 Map、Set、WeakMap 和 WeakSet等缺陷 **</p>
+<p>好的，我们知道这个东西的缺陷了，大概。</p>
+<h2 id="proxy的优缺点和实现"><a href="#proxy的优缺点和实现" class="headerlink" title="proxy的优缺点和实现"></a>proxy的优缺点和实现</h2><p>相对于 Object.defineProperty 需要对每一个属性进行劫持，Proxy 更加便捷，只需要劫持需要监听的对象即可。<br>proxy 的使用本身就是对于 对象的拦截， 通过new Proxy 的返回值，拦截了obj 对象<br>如此一来，当你 访问对象中的值的时候，他会触发 get 方法， 当你修改对象中的值的时候 他会触发 set方法</p>
+<p><em>你说proxy的缺点？</em><br>就使用来说就是每次调用的时候需要写上.value，以及解构的时候会丢失响应。</p>
+<p><strong>需要.value的原因</strong>？执行ref 的时候，如果是个原始值，他相当于会new 一个对象， 此时你的返回值就是一个对象，这个对象里面包含 一个value 属性 的get 和set 方法，这也是为什么你必须.value的原因<br><em>源码：</em><code>function createRef(rawValue: unknown, shallow: boolean) &#123; if (isRef(rawValue)) &#123; return rawValue &#125; return new RefImpl(rawValue, shallow) &#125;</code></p>
+<h2 id="什么情况下会丢失响应？"><a href="#什么情况下会丢失响应？" class="headerlink" title="什么情况下会丢失响应？"></a>什么情况下会丢失响应？</h2><ol>
+<li>解构 props 对象，因为它会失去响应式</li>
+<li>直接赋值reactive响应式对象</li>
+<li>vuex中组合API赋值</li>
+</ol>
+<p>1.</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">// 假设a是个响应式对象</span><br><span class="line">const a = &#123; b:1 &#125;</span><br><span class="line">// c 此时就是一个值，跟a 已经无关了</span><br><span class="line">const c = a.b</span><br><span class="line">// 直接访问c就相当于直接访问这个值 也就绕过了 a 对象的get ，也就失去了响应式</span><br></pre></td></tr></table></figure>
+
+<p>2.</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">// 当reactive 之后返回一个代理对象的地址被vue 存起来，</span><br><span class="line">// 用一个不恰当的比喻来说，就是这个地址具备响应式的能力</span><br><span class="line">const vue = reactive(&#123; a: 1 &#125;)</span><br><span class="line"></span><br><span class="line">//  而当你对于vue重新赋值的时候 不是将新的对象赋值给那个地址，而是将vue 换了个新地址</span><br><span class="line">//  而此时新地址不具备响应式，就失去响应式了</span><br><span class="line">//  因此vue直接不允许如此操作，如果给一个reactive的对象赋值会报“read-only”的错误</span><br><span class="line">vue = &#123; b: 2 &#125;</span><br></pre></td></tr></table></figure>
+
+<p>3.<br>store.state.count使用的时候需要用computed包住，不然会导致丢失响应</p>
+<h2 id="文献参考"><a href="#文献参考" class="headerlink" title="文献参考"></a>文献参考</h2><p><a target="_blank" rel="noopener" href="https://juejin.cn/post/7114596904926740493">juejin</a><br><a target="_blank" rel="noopener" href="https://es6.ruanyifeng.com/#docs/proxy">es6</a><br><a target="_blank" rel="noopener" href="https://blog.csdn.net/weixin_42854769/article/details/124185962">csdn</a></p>
+
     </div>
 
     
@@ -205,13 +223,10 @@
         
     <div class="post-nav">
       <div class="post-nav-item">
-    <a href="/2022/07/02/hello-world/" rel="prev" title="Hello World">
-      <i class="fa fa-chevron-left"></i> Hello World
+    <a href="/2022/07/04/%E6%B5%8B%E8%AF%95/" rel="prev" title="测试">
+      <i class="fa fa-chevron-left"></i> 测试
     </a></div>
-      <div class="post-nav-item">
-    <a href="/2022/07/04/%E4%B8%80-SFC%E5%92%8CJSX%E7%9A%84%E6%89%A9%E5%B1%95%E7%90%86%E8%A7%A3/" rel="next" title="(一)SFC和JSX的扩展理解">
-      (一)SFC和JSX的扩展理解 <i class="fa fa-chevron-right"></i>
-    </a></div>
+      <div class="post-nav-item"></div>
     </div>
       </footer>
     
@@ -270,7 +285,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#How-I-build-my-first-blog-with-Hexo"><span class="nav-number">1.</span> <span class="nav-text">How I build my first blog with Hexo</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#content"><span class="nav-number">2.</span> <span class="nav-text">content</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#What-will-i-do-with-this-blog"><span class="nav-number">3.</span> <span class="nav-text">What will i do with this blog</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Let%E2%80%99s-get-started"><span class="nav-number">4.</span> <span class="nav-text">Let’s get started!</span></a></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#proxy"><span class="nav-number">1.</span> <span class="nav-text">proxy</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#proxy%E6%98%AF%E5%95%A5%EF%BC%9F"><span class="nav-number">1.1.</span> <span class="nav-text">proxy是啥？</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#proxy%E7%9A%84%E4%BC%98%E7%BC%BA%E7%82%B9%E5%92%8C%E5%AE%9E%E7%8E%B0"><span class="nav-number">1.2.</span> <span class="nav-text">proxy的优缺点和实现</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BB%80%E4%B9%88%E6%83%85%E5%86%B5%E4%B8%8B%E4%BC%9A%E4%B8%A2%E5%A4%B1%E5%93%8D%E5%BA%94%EF%BC%9F"><span class="nav-number">1.3.</span> <span class="nav-text">什么情况下会丢失响应？</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%96%87%E7%8C%AE%E5%8F%82%E8%80%83"><span class="nav-number">1.4.</span> <span class="nav-text">文献参考</span></a></li></ol></li></ol></div>
       </div>
       <!--/noindex-->
 
