@@ -1,0 +1,414 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.4.2">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"frankfrankye.github.io","root":"/","scheme":"Muse","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+  </script>
+
+  <meta name="description" content="vuexvuex每个项目都避不开，本来最新项目我是一直拒绝用vuex的，但是写到后期设置个人中心里所有个人信息相关的内容，还是顶不住了。所以来总结一下vuex吧~ vuex、redux的恩怨情仇vuex应该是和redux很像的，至于为什么像，咱不知道咱也不敢问啊..来看两张网图——  这就是两者的工作流程，可以看出来vuex做了mutation和action区分了同步与异步的操作，调用分别用的是d">
+<meta property="og:type" content="article">
+<meta property="og:title" content="vuex学习">
+<meta property="og:url" content="https://frankfrankye.github.io/2022/07/16/vuex%E5%AD%A6%E4%B9%A0/index.html">
+<meta property="og:site_name" content="Frontend Blog">
+<meta property="og:description" content="vuexvuex每个项目都避不开，本来最新项目我是一直拒绝用vuex的，但是写到后期设置个人中心里所有个人信息相关的内容，还是顶不住了。所以来总结一下vuex吧~ vuex、redux的恩怨情仇vuex应该是和redux很像的，至于为什么像，咱不知道咱也不敢问啊..来看两张网图——  这就是两者的工作流程，可以看出来vuex做了mutation和action区分了同步与异步的操作，调用分别用的是d">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://frankfrankye.github.io/2022/07/16/vuex%E5%AD%A6%E4%B9%A0/vx_images/384761320239184.png">
+<meta property="og:image" content="https://frankfrankye.github.io/2022/07/16/vuex%E5%AD%A6%E4%B9%A0/vx_images/144211420227051.png">
+<meta property="article:published_time" content="2022-07-16T05:21:52.000Z">
+<meta property="article:modified_time" content="2022-07-17T13:09:26.382Z">
+<meta property="article:author" content="Frank Ye, Shyang">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://frankfrankye.github.io/2022/07/16/vuex%E5%AD%A6%E4%B9%A0/vx_images/384761320239184.png">
+
+<link rel="canonical" href="https://frankfrankye.github.io/2022/07/16/vuex%E5%AD%A6%E4%B9%A0/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'en'
+  };
+</script>
+
+  <title>vuex学习 | Frontend Blog</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">Frontend Blog</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>Home</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives</a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="https://frankfrankye.github.io/2022/07/16/vuex%E5%AD%A6%E4%B9%A0/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Frank Ye, Shyang">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Frontend Blog">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          vuex学习
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2022-07-16 13:21:52" itemprop="dateCreated datePublished" datetime="2022-07-16T13:21:52+08:00">2022-07-16</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2022-07-17 21:09:26" itemprop="dateModified" datetime="2022-07-17T21:09:26+08:00">2022-07-17</time>
+              </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h1 id="vuex"><a href="#vuex" class="headerlink" title="vuex"></a>vuex</h1><p>vuex每个项目都避不开，本来最新项目我是一直拒绝用vuex的，但是写到后期设置个人中心里所有个人信息相关的内容，还是顶不住了。<br>所以来总结一下vuex吧~</p>
+<h2 id="vuex、redux的恩怨情仇"><a href="#vuex、redux的恩怨情仇" class="headerlink" title="vuex、redux的恩怨情仇"></a>vuex、redux的恩怨情仇</h2><p>vuex应该是和redux很像的，至于为什么像，咱不知道咱也不敢问啊..<br>来看两张网图——<br><img src="vx_images/384761320239184.png" alt="watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L01lbnFx,size_16,color_FFFFFF,t_70"></p>
+<p><img src="vx_images/144211420227051.png" alt="watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L01lbnFx,size_16,color_FFFFFF,t_70"></p>
+<p>这就是两者的工作流程，可以看出来vuex做了mutation和action区分了同步与异步的操作，调用分别用的是dispatch（action）和commit（mutation）但是vuex的同步异步最后殊途同归，还是用mutation对state的值进行操作，从而改变视图，换一句话说——<br><strong>vuex的store状态更新的唯一方式：提交 mutation</strong></p>
+<h2 id="vuex概念"><a href="#vuex概念" class="headerlink" title="vuex概念"></a>vuex概念</h2><p>然后来总结一些vuex的概念：</p>
+<h3 id="state、store"><a href="#state、store" class="headerlink" title="state、store"></a>state、store</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">export default new Vuex.Store(&#123;</span><br><span class="line">  state: &#123; //存放状态</span><br><span class="line">    nickname:&#x27;Simba&#x27;,</span><br><span class="line">    age:20,</span><br><span class="line">    gender:&#x27;男&#x27;</span><br><span class="line">  &#125;,</span><br><span class="line">  mutations: &#123;&#125;,</span><br><span class="line">  actions: &#123;&#125;,</span><br><span class="line">  modules: &#123;&#125;</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+<p>在最基本的使用中，只需要定义一个store之后在state里存放状态，<br>比如说在最新项目中用户登录之后需要设置一个默认的语言，可以在state中添加一个lang属性，当注册之后设置<br><code>store.state.lang = navigator.language</code><br>这样就可以直接为用户选择浏览器的语言设置为默认语言。</p>
+<p>但是如果需要vuex中的多个数据的这时候，这样写就太啰嗦了（其实就算只用这一个也显得好难看），所以可以使用辅助函数。</p>
+<h3 id="辅助函数mapState、mapGetters"><a href="#辅助函数mapState、mapGetters" class="headerlink" title="辅助函数mapState、mapGetters"></a>辅助函数mapState、mapGetters</h3><p>这中间我其实忽略了直接定义在computed中的那种写法，之所以忽略是因为——</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">computed:&#123;</span><br><span class="line">    nickname()&#123;</span><br><span class="line">      return this.$store.state.nickname</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br></pre></td></tr></table></figure>
+<p>这么写和直接调用完全没啥区别（捂脸<br><code> ...mapState([&#39;nickname&#39;,&#39;age&#39;,&#39;gender&#39;])</code><br><code>...mapGetters([&#39;realname&#39;,&#39;money_us&#39;])</code><br>而如上两个这么写就简洁很多了。<br>然后忘记说了，mapGetters就相当于计算属性，有些state中的值可以直接通过getters进一步处理。</p>
+<h3 id="Mutation、Actions"><a href="#Mutation、Actions" class="headerlink" title="Mutation、Actions"></a>Mutation、Actions</h3><p>如上文所说的分属同步与异步的操作。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">mutations: &#123; //类似于methods</span><br><span class="line">  addAge(state,payLoad)&#123;</span><br><span class="line">     state.age+=payLoad.number</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">test()&#123;</span><br><span class="line">   this.$store.commit(&#x27;addAge&#x27;,&#123;</span><br><span class="line">     number:5</span><br><span class="line">   &#125;)</span><br><span class="line"> &#125;</span><br></pre></td></tr></table></figure>
+<p>第一个参数就是state，第二个payload即额外的参数，在这里的例子里就是年龄+5。这两个参数只有mutaition-commit这一组拥有；而actions中的方法默认参数为**”context”**,可以理解为 store 对象。</p>
+<p>知乎上就有人问了，直接调用Store.state.age += 5是不是也可以，感觉没什么区别，我觉得也没什么区别，然而大神们告诉我们还是太年轻了——</p>
+<ol>
+<li>在mutations中不仅仅能做赋值操作</li>
+<li> 作者在mutations中做了类似埋点操作，如果从mutations中操作的话， 能被检测到，可以更方便用调试工具调试，调试工具可以检测到实时变化，而直接改变state中的属性，则无法实时监测<br>总之，用就对了。</li>
+</ol>
+<p>另外，经常可以看到项目中作者都是使用常量替代Mutation事件类型，这里也是为了便于定位错误，这里就不赘述了。</p>
+<p>actions一般就用来调用接口然后赋值了，默认返回的是promise，所以要通过.then来获取数据</p>
+<h2 id="Vue3中使用vuex"><a href="#Vue3中使用vuex" class="headerlink" title="Vue3中使用vuex"></a>Vue3中使用vuex</h2><p>vue3似乎和vue2使用vuex还是有些不一样的。<br><strong>vue3 中对state 中对象新增属性或删除时，不再需要通过 vue.set() , 或是 vue.delete() 来进行对象的响应式处理了，直接新增的对象属性已经具有响应式。</strong></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">mutations: &#123;</span><br><span class="line">  sum (state, num) &#123;</span><br><span class="line">    state.count += num</span><br><span class="line">  &#125;</span><br><span class="line">&#125;,</span><br><span class="line">actions: &#123;</span><br><span class="line">  // context 上下文对象，可以理解为store</span><br><span class="line">  sum_actions (context, num) &#123;</span><br><span class="line">    setTimeout(() =&gt; &#123;</span><br><span class="line">      context.commit(&#x27;sum&#x27;, num)  // 通过context去触发mutions中的sum</span><br><span class="line">    &#125;, 1000)</span><br><span class="line">  &#125;</span><br><span class="line">&#125;,</span><br><span class="line"></span><br><span class="line">// ...template</span><br><span class="line">store.dispatch(&#x27;sum_actions&#x27;, num)</span><br></pre></td></tr></table></figure>
+
+<p>这里是在页面中调用actions中的方法的例子，记录一个以防以后又忘了…</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">const addAction = (num) =&gt; &#123;</span><br><span class="line">  store.dispatch(&#x27;sum_actions&#x27;, &#123;</span><br><span class="line">    num</span><br><span class="line">  &#125;).then((res) =&gt; &#123;</span><br><span class="line">    console.log(res)</span><br><span class="line">  &#125;).catch((err) =&gt; &#123;</span><br><span class="line">    console.log(err)</span><br><span class="line">  &#125;)</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>但是这些和vue2好像没有什么区别，暂时只能说引入方式和挂载方式变了<br>        import { useStore } from ‘vuex’<br>        const store = useStore()</p>
+<pre><code>app.use(store) //通过app.use(store)进行使用
+</code></pre>
+<p>听说有个类vuex的库pinia也是官方写的，有机会可以再写一篇pinia的技术文。</p>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2022/07/08/%E4%BA%8C-%E5%A4%8D%E6%9D%82%E7%9A%84vue3%E5%92%8C%E5%A4%8D%E6%9D%82%E7%9A%84proxy/" rel="prev" title="(二)复杂的vue3和复杂的proxy">
+      <i class="fa fa-chevron-left"></i> (二)复杂的vue3和复杂的proxy
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2022/07/17/canvas/" rel="next" title="canvas">
+      canvas <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#vuex"><span class="nav-number">1.</span> <span class="nav-text">vuex</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#vuex%E3%80%81redux%E7%9A%84%E6%81%A9%E6%80%A8%E6%83%85%E4%BB%87"><span class="nav-number">1.1.</span> <span class="nav-text">vuex、redux的恩怨情仇</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#vuex%E6%A6%82%E5%BF%B5"><span class="nav-number">1.2.</span> <span class="nav-text">vuex概念</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#state%E3%80%81store"><span class="nav-number">1.2.1.</span> <span class="nav-text">state、store</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%BE%85%E5%8A%A9%E5%87%BD%E6%95%B0mapState%E3%80%81mapGetters"><span class="nav-number">1.2.2.</span> <span class="nav-text">辅助函数mapState、mapGetters</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Mutation%E3%80%81Actions"><span class="nav-number">1.2.3.</span> <span class="nav-text">Mutation、Actions</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Vue3%E4%B8%AD%E4%BD%BF%E7%94%A8vuex"><span class="nav-number">1.3.</span> <span class="nav-text">Vue3中使用vuex</span></a></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">Frank Ye, Shyang</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">7</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+  </nav>
+</div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Frank Ye, Shyang</span>
+</div>
+  <div class="powered-by">Powered by <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://muse.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a>
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/muse.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>

@@ -145,6 +145,179 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="https://frankfrankye.github.io/2022/07/17/canvas/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Frank Ye, Shyang">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Frontend Blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2022/07/17/canvas/" class="post-title-link" itemprop="url">canvas</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+              
+
+              <time title="Created: 2022-07-17 21:10:14 / Modified: 21:10:28" itemprop="dateCreated datePublished" datetime="2022-07-17T21:10:14+08:00">2022-07-17</time>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h1 id="canvas"><a href="#canvas" class="headerlink" title="canvas"></a>canvas</h1><p>一直说html的基础不够，要重新学一遍，没想到居然先学了canvas.<br>之所以用canvas，是因为项目中需要画一个图如下：<br><img src="vx_images/504355520239886.png"><br>这个图看起来非常的简洁，然而我想不开非要用chartjs来画。chartjs似乎只能画稍微难一点的图，这种简单的图反而非常困难，而且她的英文文档让人看的想死。<br>在饱受折磨之后我突然想，既然这张图他不会随着时间一直变，那我完全可以试试canvas欸！</p>
+<p>我在完成这张图的时候拜读了菜鸟教程的canvas部分内容，总结了一些内容————</p>
+<ol>
+<li>canvas 尽量不要用css来设置宽高</li>
+<li>标签中的结尾/canvas不能省略，否则会被浏览器认为是替代内容（适用于较低版本的浏览器）</li>
+<li>var ctx = canvas.getContext(“2d”)</li>
+<li>ctx.fillRect(10,10,100,50) // 绘制矩形，前两个是矩形左上角的坐标，后两个是长和宽</li>
+</ol>
+<p>图形的基本元素是路径.<br>路径是通过不同颜色和宽度的线段或曲线相连而成的点的集合</p>
+<ol>
+<li>创建起始点</li>
+<li>调用绘制方法绘制出路径</li>
+<li>关闭路径</li>
+<li>填充、描边渲染图形</li>
+</ol>
+<p>几个方法：<br>beginPath()<br>moveTo(x,y)<br>closePath()<br>stroke() 绘制路径<br>fill()</p>
+<p>而我的真实代码如下，因为都有注释，所以阅读起来应该没什么阻碍：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br></pre></td><td class="code"><pre><span class="line">function draw(w = 400, h = 400)&#123;</span><br><span class="line">  var canvas = document.getElementById(&#x27;tutorial&#x27;) as any</span><br><span class="line"></span><br><span class="line">  if(!canvas.getContext) return</span><br><span class="line">  // @ts-ignore</span><br><span class="line">  var ctx = canvas.getContext(&quot;2d&quot;)</span><br><span class="line">  let gridSize = 50</span><br><span class="line">  // 4.拿到canvas的宽高</span><br><span class="line">  let canvasWidth = ctx.canvas.width</span><br><span class="line">  let canvasHeight = ctx.canvas.height</span><br><span class="line">  // 5.计算在垂直方向和水平方向可以绘制多少条横线，这里是为了画图方便，取消注释可以看到坐标轴</span><br><span class="line">  // let row = Math.floor(canvasHeight / gridSize)</span><br><span class="line">  // let col = Math.floor(canvasWidth / gridSize)</span><br><span class="line">  // // 6.绘制垂直方向的横线</span><br><span class="line">  // for(let i = 0; i &lt; row; i++)&#123;</span><br><span class="line">  //   ctx.beginPath()</span><br><span class="line">  //   ctx.moveTo(0, i * gridSize - 0.5)</span><br><span class="line">  //   ctx.lineTo(canvasWidth, i * gridSize - 0.5)</span><br><span class="line">  //   ctx.strokeStyle = &quot;#ccc&quot;</span><br><span class="line">  //   ctx.stroke()</span><br><span class="line">  // &#125;</span><br><span class="line">  // // 7.绘制水平方向的横线</span><br><span class="line">  // for(let i = 0; i &lt; col; i++)&#123;</span><br><span class="line">  //   ctx.beginPath()</span><br><span class="line">  //   ctx.moveTo(i * gridSize - 0.5, 0)</span><br><span class="line">  //   ctx.lineTo(i * gridSize - 0.5, canvasHeight)</span><br><span class="line">  //   ctx.strokeStyle = &quot;#ccc&quot;</span><br><span class="line">  //   ctx.stroke()</span><br><span class="line">  // &#125;</span><br><span class="line"></span><br><span class="line">  // 1.计算坐标系原点的位置</span><br><span class="line">  let originX = gridSize</span><br><span class="line">  let originY = canvasHeight - gridSize</span><br><span class="line">  // 2.计算X轴终点的位置</span><br><span class="line">  let endX = canvasWidth - gridSize</span><br><span class="line">  // 3.绘制X轴</span><br><span class="line">  ctx.beginPath()</span><br><span class="line">  ctx.moveTo(originX, originY)</span><br><span class="line">  ctx.lineTo(endX, originY)</span><br><span class="line">  ctx.strokeStyle = &quot;#000&quot;</span><br><span class="line">  ctx.stroke()</span><br><span class="line">  // 4.绘制X轴的箭头</span><br><span class="line">  ctx.lineTo(endX - 10, originY + 5)</span><br><span class="line">  ctx.lineTo(endX - 10, originY - 5)</span><br><span class="line">  ctx.lineTo(endX, originY)</span><br><span class="line">  ctx.fill()</span><br><span class="line"></span><br><span class="line">  // 5.计算Y轴终点的位置</span><br><span class="line">  let endY = gridSize</span><br><span class="line">  // 3.绘制Y轴</span><br><span class="line">  ctx.beginPath()</span><br><span class="line">  ctx.moveTo(originX, originY)</span><br><span class="line">  ctx.lineTo(originX, endY)</span><br><span class="line">  ctx.strokeStyle = &quot;#000&quot;</span><br><span class="line">  ctx.stroke()</span><br><span class="line">  // 4.绘制X轴的箭头</span><br><span class="line">  ctx.lineTo(originX - 5, endY + 10)</span><br><span class="line">  ctx.lineTo(originX + 5, endY + 10)</span><br><span class="line">  ctx.lineTo(originX, endY)</span><br><span class="line">  ctx.fill()</span><br><span class="line"></span><br><span class="line">  // 画第一根线</span><br><span class="line">  let x = (250 * Math.min(historicalOutput.value.days_of_investment_recovery, productDetail.value.duration))/Math.max(historicalOutput.value.days_of_investment_recovery, productDetail.value.duration)</span><br><span class="line">  ctx.beginPath()</span><br><span class="line">  ctx.moveTo(50, 350)</span><br><span class="line">  ctx.lineTo(50+x, 350-x)</span><br><span class="line">  ctx.strokeStyle = &quot;#4ABDAC&quot;</span><br><span class="line">  ctx.closePath()</span><br><span class="line">  ctx.stroke()</span><br><span class="line"></span><br><span class="line">  // 画第二根线</span><br><span class="line">  ctx.beginPath()</span><br><span class="line">  ctx.moveTo(50+x, 350-x)</span><br><span class="line">  ctx.lineTo(300, 100)</span><br><span class="line">  ctx.strokeStyle = &quot;#A9A9A9&quot;</span><br><span class="line">  ctx.closePath()</span><br><span class="line">  ctx.stroke()</span><br><span class="line">  </span><br><span class="line">  // 画两个端点</span><br><span class="line">  ctx.fillStyle = &quot;#4ABDAC&quot;</span><br><span class="line">  ctx.beginPath()</span><br><span class="line">  ctx.arc(50+x, 350-x, 6, 0, 2 * Math.PI)</span><br><span class="line">  ctx.closePath()</span><br><span class="line">  ctx.fill()</span><br><span class="line"></span><br><span class="line">  ctx.fillStyle = &quot;#A9A9A9&quot;</span><br><span class="line">  ctx.beginPath()</span><br><span class="line">  ctx.arc(300, 100, 6, 0, 2 * Math.PI)</span><br><span class="line">  ctx.closePath()</span><br><span class="line">  ctx.fill()</span><br><span class="line">  // 画两个虚线及横轴名称</span><br><span class="line">  ctx.strokeStyle = &#x27;#A9A9A9&#x27;</span><br><span class="line">  ctx.beginPath()</span><br><span class="line">  ctx.setLineDash([5, 15])</span><br><span class="line">  ctx.moveTo(300, 100)</span><br><span class="line">  ctx.lineTo(300, 350)</span><br><span class="line">  ctx.stroke()</span><br><span class="line">  </span><br><span class="line">  ctx.strokeStyle = &#x27;#A9A9A9&#x27;</span><br><span class="line">  ctx.beginPath()</span><br><span class="line">  ctx.setLineDash([5, 15])</span><br><span class="line">  ctx.moveTo(50+x, 350-x)</span><br><span class="line">  ctx.lineTo(50+x, 350)</span><br><span class="line">  ctx.stroke()</span><br><span class="line">  if(historicalOutput.value.days_of_investment_recovery &gt; productDetail.value.duration) &#123;</span><br><span class="line">    // 回本天数大于算力周期</span><br><span class="line">    ctx.fillText(t(&#x27;product.planDuration&#x27;), 300, 370)</span><br><span class="line">    ctx.fillText(t(&#x27;product.breakeven&#x27;), 50 + x, 370)</span><br><span class="line">  &#125; else&#123;</span><br><span class="line">    ctx.fillText(t(&#x27;product.breakeven&#x27;), 50 + x, 370)</span><br><span class="line">    ctx.fillText(t(&#x27;product.planDuration&#x27;), 300, 370)</span><br><span class="line">  &#125;</span><br><span class="line">  </span><br><span class="line">  // 使用了虚线之后切换回直线，将数组清空即可，这里画两个矩形，将具体天数填入矩形中</span><br><span class="line">  ctx.setLineDash([])</span><br><span class="line">  ctx.strokeRect(60+x, 350-x,60,25)</span><br><span class="line">  ctx.strokeRect(300,60,60,25)</span><br><span class="line">  ctx.fillText(Math.min(historicalOutput.value.days_of_investment_recovery, productDetail.value.duration) + t(&#x27;dashboard.dayUnit&#x27;), 80+x, 367-x)</span><br><span class="line">  ctx.fillText(Math.max(historicalOutput.value.days_of_investment_recovery, productDetail.value.duration) + t(&#x27;dashboard.dayUnit&#x27;), 316, 76)</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>效果如下：<br><img src="vx_images/77650821236441.png"></p>
+<p>后续可以继续在这里补充一些canvas的内容。</p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="https://frankfrankye.github.io/2022/07/16/vuex%E5%AD%A6%E4%B9%A0/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Frank Ye, Shyang">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Frontend Blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2022/07/16/vuex%E5%AD%A6%E4%B9%A0/" class="post-title-link" itemprop="url">vuex学习</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2022-07-16 13:21:52" itemprop="dateCreated datePublished" datetime="2022-07-16T13:21:52+08:00">2022-07-16</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2022-07-17 21:09:26" itemprop="dateModified" datetime="2022-07-17T21:09:26+08:00">2022-07-17</time>
+              </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h1 id="vuex"><a href="#vuex" class="headerlink" title="vuex"></a>vuex</h1><p>vuex每个项目都避不开，本来最新项目我是一直拒绝用vuex的，但是写到后期设置个人中心里所有个人信息相关的内容，还是顶不住了。<br>所以来总结一下vuex吧~</p>
+<h2 id="vuex、redux的恩怨情仇"><a href="#vuex、redux的恩怨情仇" class="headerlink" title="vuex、redux的恩怨情仇"></a>vuex、redux的恩怨情仇</h2><p>vuex应该是和redux很像的，至于为什么像，咱不知道咱也不敢问啊..<br>来看两张网图——<br><img src="vx_images/384761320239184.png" alt="watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L01lbnFx,size_16,color_FFFFFF,t_70"></p>
+<p><img src="vx_images/144211420227051.png" alt="watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L01lbnFx,size_16,color_FFFFFF,t_70"></p>
+<p>这就是两者的工作流程，可以看出来vuex做了mutation和action区分了同步与异步的操作，调用分别用的是dispatch（action）和commit（mutation）但是vuex的同步异步最后殊途同归，还是用mutation对state的值进行操作，从而改变视图，换一句话说——<br><strong>vuex的store状态更新的唯一方式：提交 mutation</strong></p>
+<h2 id="vuex概念"><a href="#vuex概念" class="headerlink" title="vuex概念"></a>vuex概念</h2><p>然后来总结一些vuex的概念：</p>
+<h3 id="state、store"><a href="#state、store" class="headerlink" title="state、store"></a>state、store</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">export default new Vuex.Store(&#123;</span><br><span class="line">  state: &#123; //存放状态</span><br><span class="line">    nickname:&#x27;Simba&#x27;,</span><br><span class="line">    age:20,</span><br><span class="line">    gender:&#x27;男&#x27;</span><br><span class="line">  &#125;,</span><br><span class="line">  mutations: &#123;&#125;,</span><br><span class="line">  actions: &#123;&#125;,</span><br><span class="line">  modules: &#123;&#125;</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+<p>在最基本的使用中，只需要定义一个store之后在state里存放状态，<br>比如说在最新项目中用户登录之后需要设置一个默认的语言，可以在state中添加一个lang属性，当注册之后设置<br><code>store.state.lang = navigator.language</code><br>这样就可以直接为用户选择浏览器的语言设置为默认语言。</p>
+<p>但是如果需要vuex中的多个数据的这时候，这样写就太啰嗦了（其实就算只用这一个也显得好难看），所以可以使用辅助函数。</p>
+<h3 id="辅助函数mapState、mapGetters"><a href="#辅助函数mapState、mapGetters" class="headerlink" title="辅助函数mapState、mapGetters"></a>辅助函数mapState、mapGetters</h3><p>这中间我其实忽略了直接定义在computed中的那种写法，之所以忽略是因为——</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">computed:&#123;</span><br><span class="line">    nickname()&#123;</span><br><span class="line">      return this.$store.state.nickname</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br></pre></td></tr></table></figure>
+<p>这么写和直接调用完全没啥区别（捂脸<br><code> ...mapState([&#39;nickname&#39;,&#39;age&#39;,&#39;gender&#39;])</code><br><code>...mapGetters([&#39;realname&#39;,&#39;money_us&#39;])</code><br>而如上两个这么写就简洁很多了。<br>然后忘记说了，mapGetters就相当于计算属性，有些state中的值可以直接通过getters进一步处理。</p>
+<h3 id="Mutation、Actions"><a href="#Mutation、Actions" class="headerlink" title="Mutation、Actions"></a>Mutation、Actions</h3><p>如上文所说的分属同步与异步的操作。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">mutations: &#123; //类似于methods</span><br><span class="line">  addAge(state,payLoad)&#123;</span><br><span class="line">     state.age+=payLoad.number</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">test()&#123;</span><br><span class="line">   this.$store.commit(&#x27;addAge&#x27;,&#123;</span><br><span class="line">     number:5</span><br><span class="line">   &#125;)</span><br><span class="line"> &#125;</span><br></pre></td></tr></table></figure>
+<p>第一个参数就是state，第二个payload即额外的参数，在这里的例子里就是年龄+5。这两个参数只有mutaition-commit这一组拥有；而actions中的方法默认参数为**”context”**,可以理解为 store 对象。</p>
+<p>知乎上就有人问了，直接调用Store.state.age += 5是不是也可以，感觉没什么区别，我觉得也没什么区别，然而大神们告诉我们还是太年轻了——</p>
+<ol>
+<li>在mutations中不仅仅能做赋值操作</li>
+<li> 作者在mutations中做了类似埋点操作，如果从mutations中操作的话， 能被检测到，可以更方便用调试工具调试，调试工具可以检测到实时变化，而直接改变state中的属性，则无法实时监测<br>总之，用就对了。</li>
+</ol>
+<p>另外，经常可以看到项目中作者都是使用常量替代Mutation事件类型，这里也是为了便于定位错误，这里就不赘述了。</p>
+<p>actions一般就用来调用接口然后赋值了，默认返回的是promise，所以要通过.then来获取数据</p>
+<h2 id="Vue3中使用vuex"><a href="#Vue3中使用vuex" class="headerlink" title="Vue3中使用vuex"></a>Vue3中使用vuex</h2><p>vue3似乎和vue2使用vuex还是有些不一样的。<br><strong>vue3 中对state 中对象新增属性或删除时，不再需要通过 vue.set() , 或是 vue.delete() 来进行对象的响应式处理了，直接新增的对象属性已经具有响应式。</strong></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">mutations: &#123;</span><br><span class="line">  sum (state, num) &#123;</span><br><span class="line">    state.count += num</span><br><span class="line">  &#125;</span><br><span class="line">&#125;,</span><br><span class="line">actions: &#123;</span><br><span class="line">  // context 上下文对象，可以理解为store</span><br><span class="line">  sum_actions (context, num) &#123;</span><br><span class="line">    setTimeout(() =&gt; &#123;</span><br><span class="line">      context.commit(&#x27;sum&#x27;, num)  // 通过context去触发mutions中的sum</span><br><span class="line">    &#125;, 1000)</span><br><span class="line">  &#125;</span><br><span class="line">&#125;,</span><br><span class="line"></span><br><span class="line">// ...template</span><br><span class="line">store.dispatch(&#x27;sum_actions&#x27;, num)</span><br></pre></td></tr></table></figure>
+
+<p>这里是在页面中调用actions中的方法的例子，记录一个以防以后又忘了…</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">const addAction = (num) =&gt; &#123;</span><br><span class="line">  store.dispatch(&#x27;sum_actions&#x27;, &#123;</span><br><span class="line">    num</span><br><span class="line">  &#125;).then((res) =&gt; &#123;</span><br><span class="line">    console.log(res)</span><br><span class="line">  &#125;).catch((err) =&gt; &#123;</span><br><span class="line">    console.log(err)</span><br><span class="line">  &#125;)</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>但是这些和vue2好像没有什么区别，暂时只能说引入方式和挂载方式变了<br>        import { useStore } from ‘vuex’<br>        const store = useStore()</p>
+<pre><code>app.use(store) //通过app.use(store)进行使用
+</code></pre>
+<p>听说有个类vuex的库pinia也是官方写的，有机会可以再写一篇pinia的技术文。</p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
     <link itemprop="mainEntityOfPage" href="https://frankfrankye.github.io/2022/07/08/%E4%BA%8C-%E5%A4%8D%E6%9D%82%E7%9A%84vue3%E5%92%8C%E5%A4%8D%E6%9D%82%E7%9A%84proxy/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -550,7 +723,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">5</span>
+          <span class="site-state-item-count">7</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
