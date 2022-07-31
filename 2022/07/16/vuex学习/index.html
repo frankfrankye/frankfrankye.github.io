@@ -27,13 +27,13 @@
 <meta property="og:site_name" content="Frontend Blog">
 <meta property="og:description" content="vuexvuex每个项目都避不开，本来最新项目我是一直拒绝用vuex的，但是写到后期设置个人中心里所有个人信息相关的内容，还是顶不住了。所以来总结一下vuex吧~ vuex、redux的恩怨情仇vuex应该是和redux很像的，至于为什么像，咱不知道咱也不敢问啊..来看两张网图——  这就是两者的工作流程，可以看出来vuex做了mutation和action区分了同步与异步的操作，调用分别用的是d">
 <meta property="og:locale" content="en_US">
-<meta property="og:image" content="https://frankfrankye.github.io/2022/07/16/vuex%E5%AD%A6%E4%B9%A0/vx_images/384761320239184.png">
-<meta property="og:image" content="https://frankfrankye.github.io/2022/07/16/vuex%E5%AD%A6%E4%B9%A0/vx_images/144211420227051.png">
+<meta property="og:image" content="https://frankfrankye.github.io/2022/07/public//images/chart.png">
+<meta property="og:image" content="https://frankfrankye.github.io/2022/07/public//images/chart2.png">
 <meta property="article:published_time" content="2022-07-16T05:21:52.000Z">
-<meta property="article:modified_time" content="2022-07-17T13:09:26.382Z">
+<meta property="article:modified_time" content="2022-07-31T13:32:08.411Z">
 <meta property="article:author" content="Frank Ye, Shyang">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="https://frankfrankye.github.io/2022/07/16/vuex%E5%AD%A6%E4%B9%A0/vx_images/384761320239184.png">
+<meta name="twitter:image" content="https://frankfrankye.github.io/2022/07/public//images/chart.png">
 
 <link rel="canonical" href="https://frankfrankye.github.io/2022/07/16/vuex%E5%AD%A6%E4%B9%A0/">
 
@@ -183,7 +183,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2022-07-17 21:09:26" itemprop="dateModified" datetime="2022-07-17T21:09:26+08:00">2022-07-17</time>
+                <time title="Modified: 2022-07-31 21:32:08" itemprop="dateModified" datetime="2022-07-31T21:32:08+08:00">2022-07-31</time>
               </span>
 
           
@@ -198,8 +198,8 @@
 
       
         <h1 id="vuex"><a href="#vuex" class="headerlink" title="vuex"></a>vuex</h1><p>vuex每个项目都避不开，本来最新项目我是一直拒绝用vuex的，但是写到后期设置个人中心里所有个人信息相关的内容，还是顶不住了。<br>所以来总结一下vuex吧~</p>
-<h2 id="vuex、redux的恩怨情仇"><a href="#vuex、redux的恩怨情仇" class="headerlink" title="vuex、redux的恩怨情仇"></a>vuex、redux的恩怨情仇</h2><p>vuex应该是和redux很像的，至于为什么像，咱不知道咱也不敢问啊..<br>来看两张网图——<br><img src="vx_images/384761320239184.png" alt="watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L01lbnFx,size_16,color_FFFFFF,t_70"></p>
-<p><img src="vx_images/144211420227051.png" alt="watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L01lbnFx,size_16,color_FFFFFF,t_70"></p>
+<h2 id="vuex、redux的恩怨情仇"><a href="#vuex、redux的恩怨情仇" class="headerlink" title="vuex、redux的恩怨情仇"></a>vuex、redux的恩怨情仇</h2><p>vuex应该是和redux很像的，至于为什么像，咱不知道咱也不敢问啊..<br>来看两张网图——<br><img src="../../public//images/chart.png" alt="watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L01lbnFx,size_16,color_FFFFFF,t_70"></p>
+<p><img src="../../public//images/chart2.png" alt="watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L01lbnFx,size_16,color_FFFFFF,t_70"></p>
 <p>这就是两者的工作流程，可以看出来vuex做了mutation和action区分了同步与异步的操作，调用分别用的是dispatch（action）和commit（mutation）但是vuex的同步异步最后殊途同归，还是用mutation对state的值进行操作，从而改变视图，换一句话说——<br><strong>vuex的store状态更新的唯一方式：提交 mutation</strong></p>
 <h2 id="vuex概念"><a href="#vuex概念" class="headerlink" title="vuex概念"></a>vuex概念</h2><p>然后来总结一些vuex的概念：</p>
 <h3 id="state、store"><a href="#state、store" class="headerlink" title="state、store"></a>state、store</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">export default new Vuex.Store(&#123;</span><br><span class="line">  state: &#123; //存放状态</span><br><span class="line">    nickname:&#x27;Simba&#x27;,</span><br><span class="line">    age:20,</span><br><span class="line">    gender:&#x27;男&#x27;</span><br><span class="line">  &#125;,</span><br><span class="line">  mutations: &#123;&#125;,</span><br><span class="line">  actions: &#123;&#125;,</span><br><span class="line">  modules: &#123;&#125;</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
@@ -322,7 +322,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">7</span>
+          <span class="site-state-item-count">8</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>

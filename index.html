@@ -145,6 +145,107 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="https://frankfrankye.github.io/2022/07/25/regex%E5%AE%9D%E5%85%B8/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Frank Ye, Shyang">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Frontend Blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2022/07/25/regex%E5%AE%9D%E5%85%B8/" class="post-title-link" itemprop="url">regex宝典</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2022-07-25 09:20:15" itemprop="dateCreated datePublished" datetime="2022-07-25T09:20:15+08:00">2022-07-25</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2022-07-31 21:26:25" itemprop="dateModified" datetime="2022-07-31T21:26:25+08:00">2022-07-31</time>
+              </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h1 id="regex"><a href="#regex" class="headerlink" title="regex"></a>regex</h1><p>今天来记录自学regex的内容，regex一直是代码中比较重要的一环，但我每次都会忘记该怎么写，导致每次都需要花时间重新学习，今天来整理一下regex，希望让自己多记住一点东西。<br>我是看着阮一峰的博客学习的，其实还有几个网站也非常有用，最下面会进行记录。</p>
+<h2 id="1-概述"><a href="#1-概述" class="headerlink" title="1.概述"></a>1.概述</h2><p>概述就是正则表达式的新建方法，一共有两种：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">var regex = /xyz/</span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">var regex = new RegExp(&#x27;xyz)</span><br></pre></td></tr></table></figure>
+<p>这两句都是新建了一个内容为 xyz 的正则表达式对象，第一种这么简单就别想着用new了吧~</p>
+<h2 id="2-实例方法"><a href="#2-实例方法" class="headerlink" title="2. 实例方法"></a>2. 实例方法</h2><ul>
+<li>test(‘params’)  返回一个布尔值，表示当前模式是否能匹配参数字符串</li>
+<li>exec(‘’) 返回匹配结果，如果发现匹配返回一个数组 成员就是匹配成功的字符串，否则会返回null<br>除此之外，exec返回的数组还包含了两个属性 input （整个原字符串）和 index（匹配成功的开始位置）<h2 id="3-字符串相关方法"><a href="#3-字符串相关方法" class="headerlink" title="3.字符串相关方法"></a>3.字符串相关方法</h2>实例方法在实际开发中其实用的没这么多，真正用的多的还是以下几种字符串的方法</li>
+<li>match() 对字符串进行匹配，返回匹配结果，与exec()比较相似，匹配总是从字符串的第一个字符开始</li>
+<li>search()  返回第一个满足条件的匹配结果在字符串中的位置，如果没有就返回-1</li>
+<li>replace(a, b)    接受两个值，第一个是要取代内容的位置（可以用search找出来），第二个是替换的内容 ； 取代的是第一个匹配到的值<br>replace中的第二个参数还可以是一个函数——<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">&#x27;3 and 5&#x27;.replace(/[0-9]+/g,function (match) &#123;  </span><br><span class="line">    return 2 * match</span><br><span class="line">&#125;)</span><br><span class="line">// &quot;6 and 10&quot;</span><br></pre></td></tr></table></figure>
+值得一提的是第二个参数可以用 $ 符号来指代替换的内容<br>比如 $n 代表的是匹配成功的第n组内容， n是从1开始的自然数<br>其他更多的运用可以自行查看文章底部链接</li>
+<li>split()  按照正则规则分割字符串，返回一个由分割后的各个部分组成的数组<h2 id="4-匹配规则"><a href="#4-匹配规则" class="headerlink" title="4.匹配规则"></a>4.匹配规则</h2>这就是重头戏了</li>
+</ul>
+<ol>
+<li>点字符（.）匹配除回车、换行、行分隔符和段分隔符的所有字符 （/c.t/ 匹配c和t之间任意一个字符）</li>
+<li>位置字符（^）：表示字符串的开始位置  ； ($) ：字符串的结束位置<br>e.g /^test/ test必须出现在字符串的开始位置</li>
+<li>选择符（|）<h3 id="转义符"><a href="#转义符" class="headerlink" title="转义符"></a>转义符</h3>有特殊含义的元字符如果要匹配它们本身的话就需要在前面加上反斜杠<br>特殊元字符： ^  .  [  $  (  )  |  *  +  ? <h3 id="字符类"><a href="#字符类" class="headerlink" title="字符类"></a>字符类</h3>表示有一系列字符可供选择，只要匹配其中一个就可以了 【xyz】代表x,y,z中任选一个匹配就返回true<br>【^】是脱字符，即除了字符类中字符，其他字符都可以匹配<br>【-】 是连字符 【a-z】表示26个字母<h3 id="预定义模式"><a href="#预定义模式" class="headerlink" title="预定义模式"></a>预定义模式</h3>就是一些预先定义好的简写，可以背一背，也可以无视~</li>
+</ol>
+<ul>
+<li>\d 相当于【0-9】</li>
+<li>\D 相当于【^0-9】</li>
+<li>\w 相当于【0-9a-zA-Z_】</li>
+<li>\W </li>
+<li>\s 匹配空格</li>
+<li>\S <h3 id="重复类"><a href="#重复类" class="headerlink" title="重复类"></a>重复类</h3>{n}代表重复几次 {n,m}表示重复不少于n次，不多于m次<h3 id="量词符"><a href="#量词符" class="headerlink" title="量词符"></a>量词符</h3></li>
+<li>？出现0次或1次</li>
+<li><ul>
+<li>出现0次或多次</li>
+</ul>
+</li>
+<li><ul>
+<li>出现一次或多次<h3 id="修饰符"><a href="#修饰符" class="headerlink" title="修饰符"></a>修饰符</h3>修饰符一般都放在正则表达式的末尾<br>g修饰符 全局匹配<br>i 修饰符 忽略大小写<br>m修饰符 多行模式，会识别换行符</li>
+</ul>
+</li>
+</ul>
+<p>链接：<br><a target="_blank" rel="noopener" href="https://javascript.ruanyifeng.com/stdlib/regexp.html">阮一峰网络博客</a><br><a target="_blank" rel="noopener" href="https://jex.im/regulex">regulex</a><br><a target="_blank" rel="noopener" href="https://regexper.com/">refexper</a><br><a target="_blank" rel="noopener" href="https://www.debuggex.com/">debuggex</a></p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
     <link itemprop="mainEntityOfPage" href="https://frankfrankye.github.io/2022/07/17/canvas/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -168,10 +269,16 @@
                 <i class="far fa-calendar"></i>
               </span>
               <span class="post-meta-item-text">Posted on</span>
-              
 
-              <time title="Created: 2022-07-17 21:10:14 / Modified: 21:10:28" itemprop="dateCreated datePublished" datetime="2022-07-17T21:10:14+08:00">2022-07-17</time>
+              <time title="Created: 2022-07-17 21:10:14" itemprop="dateCreated datePublished" datetime="2022-07-17T21:10:14+08:00">2022-07-17</time>
             </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2022-07-31 21:32:54" itemprop="dateModified" datetime="2022-07-31T21:32:54+08:00">2022-07-31</time>
+              </span>
 
           
 
@@ -184,7 +291,7 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <h1 id="canvas"><a href="#canvas" class="headerlink" title="canvas"></a>canvas</h1><p>一直说html的基础不够，要重新学一遍，没想到居然先学了canvas.<br>之所以用canvas，是因为项目中需要画一个图如下：<br><img src="vx_images/504355520239886.png"><br>这个图看起来非常的简洁，然而我想不开非要用chartjs来画。chartjs似乎只能画稍微难一点的图，这种简单的图反而非常困难，而且她的英文文档让人看的想死。<br>在饱受折磨之后我突然想，既然这张图他不会随着时间一直变，那我完全可以试试canvas欸！</p>
+          <h1 id="canvas"><a href="#canvas" class="headerlink" title="canvas"></a>canvas</h1><p>一直说html的基础不够，要重新学一遍，没想到居然先学了canvas.<br>之所以用canvas，是因为项目中需要画一个图如下：<br><img src="../../public/images/canvas0.png"><br>这个图看起来非常的简洁，然而我想不开非要用chartjs来画。chartjs似乎只能画稍微难一点的图，这种简单的图反而非常困难，而且她的英文文档让人看的想死。<br>在饱受折磨之后我突然想，既然这张图他不会随着时间一直变，那我完全可以试试canvas欸！</p>
 <p>我在完成这张图的时候拜读了菜鸟教程的canvas部分内容，总结了一些内容————</p>
 <ol>
 <li>canvas 尽量不要用css来设置宽高</li>
@@ -202,7 +309,7 @@
 <p>几个方法：<br>beginPath()<br>moveTo(x,y)<br>closePath()<br>stroke() 绘制路径<br>fill()</p>
 <p>而我的真实代码如下，因为都有注释，所以阅读起来应该没什么阻碍：</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br></pre></td><td class="code"><pre><span class="line">function draw(w = 400, h = 400)&#123;</span><br><span class="line">  var canvas = document.getElementById(&#x27;tutorial&#x27;) as any</span><br><span class="line"></span><br><span class="line">  if(!canvas.getContext) return</span><br><span class="line">  // @ts-ignore</span><br><span class="line">  var ctx = canvas.getContext(&quot;2d&quot;)</span><br><span class="line">  let gridSize = 50</span><br><span class="line">  // 4.拿到canvas的宽高</span><br><span class="line">  let canvasWidth = ctx.canvas.width</span><br><span class="line">  let canvasHeight = ctx.canvas.height</span><br><span class="line">  // 5.计算在垂直方向和水平方向可以绘制多少条横线，这里是为了画图方便，取消注释可以看到坐标轴</span><br><span class="line">  // let row = Math.floor(canvasHeight / gridSize)</span><br><span class="line">  // let col = Math.floor(canvasWidth / gridSize)</span><br><span class="line">  // // 6.绘制垂直方向的横线</span><br><span class="line">  // for(let i = 0; i &lt; row; i++)&#123;</span><br><span class="line">  //   ctx.beginPath()</span><br><span class="line">  //   ctx.moveTo(0, i * gridSize - 0.5)</span><br><span class="line">  //   ctx.lineTo(canvasWidth, i * gridSize - 0.5)</span><br><span class="line">  //   ctx.strokeStyle = &quot;#ccc&quot;</span><br><span class="line">  //   ctx.stroke()</span><br><span class="line">  // &#125;</span><br><span class="line">  // // 7.绘制水平方向的横线</span><br><span class="line">  // for(let i = 0; i &lt; col; i++)&#123;</span><br><span class="line">  //   ctx.beginPath()</span><br><span class="line">  //   ctx.moveTo(i * gridSize - 0.5, 0)</span><br><span class="line">  //   ctx.lineTo(i * gridSize - 0.5, canvasHeight)</span><br><span class="line">  //   ctx.strokeStyle = &quot;#ccc&quot;</span><br><span class="line">  //   ctx.stroke()</span><br><span class="line">  // &#125;</span><br><span class="line"></span><br><span class="line">  // 1.计算坐标系原点的位置</span><br><span class="line">  let originX = gridSize</span><br><span class="line">  let originY = canvasHeight - gridSize</span><br><span class="line">  // 2.计算X轴终点的位置</span><br><span class="line">  let endX = canvasWidth - gridSize</span><br><span class="line">  // 3.绘制X轴</span><br><span class="line">  ctx.beginPath()</span><br><span class="line">  ctx.moveTo(originX, originY)</span><br><span class="line">  ctx.lineTo(endX, originY)</span><br><span class="line">  ctx.strokeStyle = &quot;#000&quot;</span><br><span class="line">  ctx.stroke()</span><br><span class="line">  // 4.绘制X轴的箭头</span><br><span class="line">  ctx.lineTo(endX - 10, originY + 5)</span><br><span class="line">  ctx.lineTo(endX - 10, originY - 5)</span><br><span class="line">  ctx.lineTo(endX, originY)</span><br><span class="line">  ctx.fill()</span><br><span class="line"></span><br><span class="line">  // 5.计算Y轴终点的位置</span><br><span class="line">  let endY = gridSize</span><br><span class="line">  // 3.绘制Y轴</span><br><span class="line">  ctx.beginPath()</span><br><span class="line">  ctx.moveTo(originX, originY)</span><br><span class="line">  ctx.lineTo(originX, endY)</span><br><span class="line">  ctx.strokeStyle = &quot;#000&quot;</span><br><span class="line">  ctx.stroke()</span><br><span class="line">  // 4.绘制X轴的箭头</span><br><span class="line">  ctx.lineTo(originX - 5, endY + 10)</span><br><span class="line">  ctx.lineTo(originX + 5, endY + 10)</span><br><span class="line">  ctx.lineTo(originX, endY)</span><br><span class="line">  ctx.fill()</span><br><span class="line"></span><br><span class="line">  // 画第一根线</span><br><span class="line">  let x = (250 * Math.min(historicalOutput.value.days_of_investment_recovery, productDetail.value.duration))/Math.max(historicalOutput.value.days_of_investment_recovery, productDetail.value.duration)</span><br><span class="line">  ctx.beginPath()</span><br><span class="line">  ctx.moveTo(50, 350)</span><br><span class="line">  ctx.lineTo(50+x, 350-x)</span><br><span class="line">  ctx.strokeStyle = &quot;#4ABDAC&quot;</span><br><span class="line">  ctx.closePath()</span><br><span class="line">  ctx.stroke()</span><br><span class="line"></span><br><span class="line">  // 画第二根线</span><br><span class="line">  ctx.beginPath()</span><br><span class="line">  ctx.moveTo(50+x, 350-x)</span><br><span class="line">  ctx.lineTo(300, 100)</span><br><span class="line">  ctx.strokeStyle = &quot;#A9A9A9&quot;</span><br><span class="line">  ctx.closePath()</span><br><span class="line">  ctx.stroke()</span><br><span class="line">  </span><br><span class="line">  // 画两个端点</span><br><span class="line">  ctx.fillStyle = &quot;#4ABDAC&quot;</span><br><span class="line">  ctx.beginPath()</span><br><span class="line">  ctx.arc(50+x, 350-x, 6, 0, 2 * Math.PI)</span><br><span class="line">  ctx.closePath()</span><br><span class="line">  ctx.fill()</span><br><span class="line"></span><br><span class="line">  ctx.fillStyle = &quot;#A9A9A9&quot;</span><br><span class="line">  ctx.beginPath()</span><br><span class="line">  ctx.arc(300, 100, 6, 0, 2 * Math.PI)</span><br><span class="line">  ctx.closePath()</span><br><span class="line">  ctx.fill()</span><br><span class="line">  // 画两个虚线及横轴名称</span><br><span class="line">  ctx.strokeStyle = &#x27;#A9A9A9&#x27;</span><br><span class="line">  ctx.beginPath()</span><br><span class="line">  ctx.setLineDash([5, 15])</span><br><span class="line">  ctx.moveTo(300, 100)</span><br><span class="line">  ctx.lineTo(300, 350)</span><br><span class="line">  ctx.stroke()</span><br><span class="line">  </span><br><span class="line">  ctx.strokeStyle = &#x27;#A9A9A9&#x27;</span><br><span class="line">  ctx.beginPath()</span><br><span class="line">  ctx.setLineDash([5, 15])</span><br><span class="line">  ctx.moveTo(50+x, 350-x)</span><br><span class="line">  ctx.lineTo(50+x, 350)</span><br><span class="line">  ctx.stroke()</span><br><span class="line">  if(historicalOutput.value.days_of_investment_recovery &gt; productDetail.value.duration) &#123;</span><br><span class="line">    // 回本天数大于算力周期</span><br><span class="line">    ctx.fillText(t(&#x27;product.planDuration&#x27;), 300, 370)</span><br><span class="line">    ctx.fillText(t(&#x27;product.breakeven&#x27;), 50 + x, 370)</span><br><span class="line">  &#125; else&#123;</span><br><span class="line">    ctx.fillText(t(&#x27;product.breakeven&#x27;), 50 + x, 370)</span><br><span class="line">    ctx.fillText(t(&#x27;product.planDuration&#x27;), 300, 370)</span><br><span class="line">  &#125;</span><br><span class="line">  </span><br><span class="line">  // 使用了虚线之后切换回直线，将数组清空即可，这里画两个矩形，将具体天数填入矩形中</span><br><span class="line">  ctx.setLineDash([])</span><br><span class="line">  ctx.strokeRect(60+x, 350-x,60,25)</span><br><span class="line">  ctx.strokeRect(300,60,60,25)</span><br><span class="line">  ctx.fillText(Math.min(historicalOutput.value.days_of_investment_recovery, productDetail.value.duration) + t(&#x27;dashboard.dayUnit&#x27;), 80+x, 367-x)</span><br><span class="line">  ctx.fillText(Math.max(historicalOutput.value.days_of_investment_recovery, productDetail.value.duration) + t(&#x27;dashboard.dayUnit&#x27;), 316, 76)</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>效果如下：<br><img src="vx_images/77650821236441.png"></p>
+<p>效果如下：<br><img src="../../public/images/canvas1.png"></p>
 <p>后续可以继续在这里补充一些canvas的内容。</p>
 
       
@@ -254,7 +361,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2022-07-17 21:09:26" itemprop="dateModified" datetime="2022-07-17T21:09:26+08:00">2022-07-17</time>
+                <time title="Modified: 2022-07-31 21:32:08" itemprop="dateModified" datetime="2022-07-31T21:32:08+08:00">2022-07-31</time>
               </span>
 
           
@@ -269,8 +376,8 @@
 
       
           <h1 id="vuex"><a href="#vuex" class="headerlink" title="vuex"></a>vuex</h1><p>vuex每个项目都避不开，本来最新项目我是一直拒绝用vuex的，但是写到后期设置个人中心里所有个人信息相关的内容，还是顶不住了。<br>所以来总结一下vuex吧~</p>
-<h2 id="vuex、redux的恩怨情仇"><a href="#vuex、redux的恩怨情仇" class="headerlink" title="vuex、redux的恩怨情仇"></a>vuex、redux的恩怨情仇</h2><p>vuex应该是和redux很像的，至于为什么像，咱不知道咱也不敢问啊..<br>来看两张网图——<br><img src="vx_images/384761320239184.png" alt="watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L01lbnFx,size_16,color_FFFFFF,t_70"></p>
-<p><img src="vx_images/144211420227051.png" alt="watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L01lbnFx,size_16,color_FFFFFF,t_70"></p>
+<h2 id="vuex、redux的恩怨情仇"><a href="#vuex、redux的恩怨情仇" class="headerlink" title="vuex、redux的恩怨情仇"></a>vuex、redux的恩怨情仇</h2><p>vuex应该是和redux很像的，至于为什么像，咱不知道咱也不敢问啊..<br>来看两张网图——<br><img src="../../public//images/chart.png" alt="watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L01lbnFx,size_16,color_FFFFFF,t_70"></p>
+<p><img src="../../public//images/chart2.png" alt="watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L01lbnFx,size_16,color_FFFFFF,t_70"></p>
 <p>这就是两者的工作流程，可以看出来vuex做了mutation和action区分了同步与异步的操作，调用分别用的是dispatch（action）和commit（mutation）但是vuex的同步异步最后殊途同归，还是用mutation对state的值进行操作，从而改变视图，换一句话说——<br><strong>vuex的store状态更新的唯一方式：提交 mutation</strong></p>
 <h2 id="vuex概念"><a href="#vuex概念" class="headerlink" title="vuex概念"></a>vuex概念</h2><p>然后来总结一些vuex的概念：</p>
 <h3 id="state、store"><a href="#state、store" class="headerlink" title="state、store"></a>state、store</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">export default new Vuex.Store(&#123;</span><br><span class="line">  state: &#123; //存放状态</span><br><span class="line">    nickname:&#x27;Simba&#x27;,</span><br><span class="line">    age:20,</span><br><span class="line">    gender:&#x27;男&#x27;</span><br><span class="line">  &#125;,</span><br><span class="line">  mutations: &#123;&#125;,</span><br><span class="line">  actions: &#123;&#125;,</span><br><span class="line">  modules: &#123;&#125;</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
@@ -723,7 +830,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">7</span>
+          <span class="site-state-item-count">8</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
