@@ -28,7 +28,7 @@
 <meta property="og:description" content="regex今天来记录自学regex的内容，regex一直是代码中比较重要的一环，但我每次都会忘记该怎么写，导致每次都需要花时间重新学习，今天来整理一下regex，希望让自己多记住一点东西。我是看着阮一峰的博客学习的，其实还有几个网站也非常有用，最下面会进行记录。 1.概述概述就是正则表达式的新建方法，一共有两种： 1var regex &#x3D; &#x2F;xyz&#x2F; 1var regex &#x3D; new RegExp">
 <meta property="og:locale" content="en_US">
 <meta property="article:published_time" content="2022-07-25T01:20:15.000Z">
-<meta property="article:modified_time" content="2022-07-31T13:26:25.011Z">
+<meta property="article:modified_time" content="2022-09-20T13:06:01.502Z">
 <meta property="article:author" content="Frank Ye, Shyang">
 <meta name="twitter:card" content="summary">
 
@@ -180,7 +180,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2022-07-31 21:26:25" itemprop="dateModified" datetime="2022-07-31T21:26:25+08:00">2022-07-31</time>
+                <time title="Modified: 2022-09-20 21:06:01" itemprop="dateModified" datetime="2022-09-20T21:06:01+08:00">2022-09-20</time>
               </span>
 
           
@@ -201,13 +201,17 @@
 <p>这两句都是新建了一个内容为 xyz 的正则表达式对象，第一种这么简单就别想着用new了吧~</p>
 <h2 id="2-实例方法"><a href="#2-实例方法" class="headerlink" title="2. 实例方法"></a>2. 实例方法</h2><ul>
 <li>test(‘params’)  返回一个布尔值，表示当前模式是否能匹配参数字符串</li>
-<li>exec(‘’) 返回匹配结果，如果发现匹配返回一个数组 成员就是匹配成功的字符串，否则会返回null<br>除此之外，exec返回的数组还包含了两个属性 input （整个原字符串）和 index（匹配成功的开始位置）<h2 id="3-字符串相关方法"><a href="#3-字符串相关方法" class="headerlink" title="3.字符串相关方法"></a>3.字符串相关方法</h2>实例方法在实际开发中其实用的没这么多，真正用的多的还是以下几种字符串的方法</li>
+<li>exec(‘’) 返回匹配结果，如果发现匹配返回一个数组 成员就是匹配成功的字符串，否则会返回null<br>除此之外，exec返回的数组还包含了两个属性 input （整个原字符串）和 index（匹配成功的开始位置）</li>
+</ul>
+<h2 id="3-字符串相关方法"><a href="#3-字符串相关方法" class="headerlink" title="3.字符串相关方法"></a>3.字符串相关方法</h2><p>实例方法在实际开发中其实用的没这么多，真正用的多的还是以下几种字符串的方法</p>
+<ul>
 <li>match() 对字符串进行匹配，返回匹配结果，与exec()比较相似，匹配总是从字符串的第一个字符开始</li>
 <li>search()  返回第一个满足条件的匹配结果在字符串中的位置，如果没有就返回-1</li>
 <li>replace(a, b)    接受两个值，第一个是要取代内容的位置（可以用search找出来），第二个是替换的内容 ； 取代的是第一个匹配到的值<br>replace中的第二个参数还可以是一个函数——<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">&#x27;3 and 5&#x27;.replace(/[0-9]+/g,function (match) &#123;  </span><br><span class="line">    return 2 * match</span><br><span class="line">&#125;)</span><br><span class="line">// &quot;6 and 10&quot;</span><br></pre></td></tr></table></figure>
 值得一提的是第二个参数可以用 $ 符号来指代替换的内容<br>比如 $n 代表的是匹配成功的第n组内容， n是从1开始的自然数<br>其他更多的运用可以自行查看文章底部链接</li>
-<li>split()  按照正则规则分割字符串，返回一个由分割后的各个部分组成的数组<h2 id="4-匹配规则"><a href="#4-匹配规则" class="headerlink" title="4.匹配规则"></a>4.匹配规则</h2>这就是重头戏了</li>
+<li>split()  按照正则规则分割字符串，返回一个由分割后的各个部分组成的数组</li>
 </ul>
+<h2 id="4-匹配规则"><a href="#4-匹配规则" class="headerlink" title="4.匹配规则"></a>4.匹配规则</h2><p>这就是重头戏了</p>
 <ol>
 <li>点字符（.）匹配除回车、换行、行分隔符和段分隔符的所有字符 （/c.t/ 匹配c和t之间任意一个字符）</li>
 <li>位置字符（^）：表示字符串的开始位置  ； ($) ：字符串的结束位置<br>e.g /^test/ test必须出现在字符串的开始位置</li>
@@ -219,16 +223,11 @@
 <li>\w 相当于【0-9a-zA-Z_】</li>
 <li>\W </li>
 <li>\s 匹配空格</li>
-<li>\S <h3 id="重复类"><a href="#重复类" class="headerlink" title="重复类"></a>重复类</h3>{n}代表重复几次 {n,m}表示重复不少于n次，不多于m次<h3 id="量词符"><a href="#量词符" class="headerlink" title="量词符"></a>量词符</h3></li>
-<li>？出现0次或1次</li>
-<li><ul>
+<li>\S <h3 id="重复类"><a href="#重复类" class="headerlink" title="重复类"></a>重复类</h3>{n}代表重复几次 {n,m}表示重复不少于n次，不多于m次<h3 id="量词符"><a href="#量词符" class="headerlink" title="量词符"></a>量词符</h3>？出现0次或1次</li>
 <li>出现0次或多次</li>
 </ul>
-</li>
-<li><ul>
+<ul>
 <li>出现一次或多次<h3 id="修饰符"><a href="#修饰符" class="headerlink" title="修饰符"></a>修饰符</h3>修饰符一般都放在正则表达式的末尾<br>g修饰符 全局匹配<br>i 修饰符 忽略大小写<br>m修饰符 多行模式，会识别换行符</li>
-</ul>
-</li>
 </ul>
 <p>链接：<br><a target="_blank" rel="noopener" href="https://javascript.ruanyifeng.com/stdlib/regexp.html">阮一峰网络博客</a><br><a target="_blank" rel="noopener" href="https://jex.im/regulex">regulex</a><br><a target="_blank" rel="noopener" href="https://regexper.com/">refexper</a><br><a target="_blank" rel="noopener" href="https://www.debuggex.com/">debuggex</a></p>
 
@@ -249,7 +248,10 @@
     <a href="/2022/07/17/canvas/" rel="prev" title="canvas">
       <i class="fa fa-chevron-left"></i> canvas
     </a></div>
-      <div class="post-nav-item"></div>
+      <div class="post-nav-item">
+    <a href="/2022/09/20/%E5%89%8D%E7%AB%AF%E5%AE%9D%E5%85%B8/" rel="next" title="前端宝典">
+      前端宝典 <i class="fa fa-chevron-right"></i>
+    </a></div>
     </div>
       </footer>
     
@@ -322,7 +324,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">8</span>
+          <span class="site-state-item-count">9</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>

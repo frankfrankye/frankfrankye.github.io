@@ -145,6 +145,106 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="https://frankfrankye.github.io/2022/09/20/%E5%89%8D%E7%AB%AF%E5%AE%9D%E5%85%B8/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Frank Ye, Shyang">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Frontend Blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2022/09/20/%E5%89%8D%E7%AB%AF%E5%AE%9D%E5%85%B8/" class="post-title-link" itemprop="url">前端宝典</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+              
+
+              <time title="Created: 2022-09-20 20:02:27 / Modified: 21:19:59" itemprop="dateCreated datePublished" datetime="2022-09-20T20:02:27+08:00">2022-09-20</time>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h1 id="前端知识点"><a href="#前端知识点" class="headerlink" title="前端知识点"></a>前端知识点</h1><h2 id="MVVM模式和MVC模式是啥"><a href="#MVVM模式和MVC模式是啥" class="headerlink" title="MVVM模式和MVC模式是啥"></a>MVVM模式和MVC模式是啥</h2><p>MVC模式是单向绑定，即Model绑定到View，当我们用JavaScript代码更新Model时，View就会自动更新。<br>MVVM模式就是Model–View–ViewModel模式。用户更新了View，Model的数据也自动被更新了，这种情况就是双向绑定。</p>
+<h2 id="Vue双向绑定原理是啥"><a href="#Vue双向绑定原理是啥" class="headerlink" title="Vue双向绑定原理是啥"></a>Vue双向绑定原理是啥</h2><p>通过数据劫持结合发布者-订阅者模式的方式来实现的。一个监听器Observer，一个订阅者Watcher，一个解析器Compile。</p>
+<h2 id="Promise对象"><a href="#Promise对象" class="headerlink" title="Promise对象"></a>Promise对象</h2><p>要想创建一个 promise 对象、可以使用 new 来调用 Promise 的构造器来进行实例化。<br>var myFirstPromise = new Promise(function(resolve, reject){  }<br>当异步代码执行成功时，我们才会调用resolve(…), 当异步代码失败时就会调用reject(…)</p>
+<h2 id="ajax-promise-axios"><a href="#ajax-promise-axios" class="headerlink" title="ajax,promise,axios"></a>ajax,promise,axios</h2><p>axios 是一个基于Promise 用于浏览器和 nodejs 的 HTTP 客户端，本质上也是对原生XHR的封装，只不过它是Promise的实现版本，符合最新的ES规范<br>Promise实际是充当ajax获取后台数据后执行回调的异步执行顺序的一个媒介，客观来说就是避免ajax回调地狱（反复嵌套回调）<br>axios是通过promise实现对ajax技术的一种封装，就像jQuery实现ajax封装一样ajax技术实现了网页的局部数据刷新，axios实现了对ajax的封装<br>axios是ajax ajax不止axios</p>
+<h2 id="回调函数"><a href="#回调函数" class="headerlink" title="回调函数"></a>回调函数</h2><p>回调函数是指用一个函数作为参数传入另一个函数，这个函数会被在某个时机调用。</p>
+<h2 id="跨域处理"><a href="#跨域处理" class="headerlink" title="跨域处理"></a>跨域处理</h2><ol>
+<li>后端设置cors</li>
+<li>jsonp  动态插入script标签，通过script标签引入一个js文件，这个js文件载入成功后会执行我们在url参数中指定的函数，并且会把我们需要的json数据作为参数传入。<br>​ 缺点：是只支持GET请求。</li>
+<li>代理服务器，我方服务器去目标服务器拿数据，再将拿到的数据发回给前端页面</li>
+</ol>
+<h2 id="状态码"><a href="#状态码" class="headerlink" title="状态码"></a>状态码</h2><h2 id="get-post请求"><a href="#get-post请求" class="headerlink" title="get/post请求"></a>get/post请求</h2><p>语意上 get是用来获取资源，post是用来向服务器增加资源<br>get没有请求体 post有请求体<br>get可被收藏，post不可以</p>
+<h2 id="cookie-localstorage-sessionstorage"><a href="#cookie-localstorage-sessionstorage" class="headerlink" title="cookie\ localstorage\ sessionstorage"></a>cookie\ localstorage\ sessionstorage</h2><h2 id="Null与undefine"><a href="#Null与undefine" class="headerlink" title="Null与undefine"></a>Null与undefine</h2><p>null表示没有对象，可能将来要赋值一个对象，即该处不应该有值<br>undefined表示缺少值，即此处应该有值，但没有定义</p>
+<h2 id="for···in-for··of"><a href="#for···in-for··of" class="headerlink" title="for···in  for··of"></a>for···in  for··of</h2><p>for···in取key，for··of取value</p>
+<h2 id="this"><a href="#this" class="headerlink" title="this"></a>this</h2><p>在浏览器里，在全局范围内this 指向window对象；<br>在函数中，this永远指向最后调用他的那个对象；<br>构造函数中，this指向new出来的那个新的对象；<br>call、apply、bind中的this被强绑定在指定的那个对象上；<br>箭头函数中this比较特殊,箭头函数this为父作用域的this，不是调用时的this.要知道前四种方式,都是调用时确定,也就是动态的,而箭头函数的this指向是静态的,声明的时候就确定了下来；<br>apply、call、bind都是js给函数内置的一些API，调用他们可以为函数指定this的执行,同时也可以传参。</p>
+<h2 id="原型和原型链"><a href="#原型和原型链" class="headerlink" title="原型和原型链"></a>原型和原型链</h2><p>每个函数都有一个prototype属性，被称为显示原型；<br>每个实例对象都会有_ <em>proto</em> <em>属性,其被称为隐式原型<br>每一个实例对象的隐式原型</em> <em>proto</em> _属性指向自身构造函数的显式原型prototype<br>每个prototype原型都有一个constructor属性，指向它关联的构造函数。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">var fn=new Fun()                           </span><br><span class="line">var obj &#123;  &#125;</span><br><span class="line">fn.__proto__===Fun.prototype               </span><br><span class="line">obj.__proto__===Object.prototype</span><br></pre></td></tr></table></figure>
+
+<p>获取对象属性时，如果对象本身没有这个属性，那就会去他的原型__proto__上去找，如果还查不到，就去找原型的原型，一直找到最顶层(Object.prototype)为止。Object.prototype对象也有__proto__属性值为null。</p>
+<h2 id="作用域（全局变量，局部变量）"><a href="#作用域（全局变量，局部变量）" class="headerlink" title="作用域（全局变量，局部变量）"></a>作用域（全局变量，局部变量）</h2><p>js中首先有一个最外层的作用域，全局作用域；<br>js中可以通过函数来创建一个独立作用域称为函数作用域，函数可以嵌套，所以作用域也可以嵌套；<br>es6中新增了块级作用域（大括号，比如：if{},for(){},while(){}…）</p>
+<h2 id="闭包"><a href="#闭包" class="headerlink" title="闭包"></a>闭包</h2><p>定义：闭包可以简单理解成”定义在一个函数内部的函数”。<br>目标：为了获取函数内的局部变量<br>return f2的话就能获取f1函数内部局部变量  </p>
+<h2 id="异步相关"><a href="#异步相关" class="headerlink" title="异步相关"></a>异步相关</h2><p>宏任务包括：setTimeout setInterval Ajax DOM事件<br>微任务：Promise async/await<br>微任务比宏任务的执行时间要早<br>前端使用异步的场景：<br>定时任务：setTimeout，setInverval<br>网络请求：ajax请求，动态<img>加载<br>事件绑定<br>异步任务会进入Event Table并注册函数。当指定的事情完成时，Event Table会将这个函数移入任务队列(Event Queue)。主线程内的任务执行完毕为空，就去任务队列（Event Queue）读取对应的函数，进入主线程执行。上述过程会不断重复，也就是常说的Event Loop（事件循环）</p>
+<h2 id="Mustache（vue）"><a href="#Mustache（vue）" class="headerlink" title="Mustache（vue）"></a>Mustache（vue）</h2><p>Data中的数据如果是从后台获取并渲染到页面的，即是动态的，就可以用双大括号把key值包起来</p>
+<h2 id="垃圾回收机制"><a href="#垃圾回收机制" class="headerlink" title="垃圾回收机制"></a>垃圾回收机制</h2><p>标记清除：变量被声明后被标记进入环境，离开环境之后再做离开环境标记，收回内存。<br>引用计数的含义是跟踪记录每个值被引用的次数。当声明了一个变量并将一个引用类型值赋给该变量时，则这个值的引用次数就是1。如果同一个值又被赋给另一个变量，则该值的引用次数加 1。相反，如果包含对这个值引用的变量又取得了另外一个值，则这个值的引用次数减 1。当这个值的引用次数变成 0 时，则说明没有办法再访问这个值了，因而就可以将其占用的内存空间回收回来。这样，当垃圾回收器下次再运行时，它就会释放那些引用次数为 0 的值所占用的内存。</p>
+<h2 id="内存泄漏"><a href="#内存泄漏" class="headerlink" title="内存泄漏"></a>内存泄漏</h2><p>不再用到的内存，没有及时释放，就叫做内存泄漏<br> 用google查看内存泄漏：Timeline -&gt; Memory 点击record<br>Vue中的内存泄漏出现原因：mounted、created里用JS绑定了DOM事件／使用了setInterval  解决方法：在beforeDestroy中进行销毁处理。</p>
+<h2 id="Vue组件通信-vue2"><a href="#Vue组件通信-vue2" class="headerlink" title="Vue组件通信(vue2)"></a>Vue组件通信(vue2)</h2><p>父传子：通过props属性给子组件通信的 子组件名为标签绑定数据，子组件中用props接收</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">子传父：通过绑定事件和$emit传值 子组件通过$emit触发父组件上的自定义事件，发送参数 父组件上的自定义事件要监听子组件的点击事件</span><br></pre></td></tr></table></figure>
+<p>非父子传参：事件总线<br><code>全局创建$bus，发送事件用$emit，接收事件用$On Vue.prototype.$bus = this.$bus.$emit</code></p>
+<h2 id="盒模型及相关"><a href="#盒模型及相关" class="headerlink" title="盒模型及相关"></a>盒模型及相关</h2><p>在我们HTML页面中，每一个元素都可以被看作一个盒子，而这个盒子由：内容区（content）、填充区（padding）、边框区（border）、外边界区（margin）四部分组成。<br>标准模型/怪异模型</p>
+<h2 id="BFC"><a href="#BFC" class="headerlink" title="BFC"></a>BFC</h2><p>“块级格式化上下文”的意思，BFC是一块独立的布局环境，保护其中内部元素不收外部影响，也不影响外部。本身BFC是一种css的布局方式，只是我们可以利用它来解决外边距折叠的问题，BFC并不是专门用来解决这个问题而创的；<br>边距重叠： 两个box如果都设置了边距，那么在垂直方向上，两个box的边距会发生重叠，以绝对值大的那个为最终结果显示在页面上。【第二中情况是父元素跟着子元素的margin】 可以设置overflow:hidden等方式解决。</p>
+<h2 id="如何让一个元素在父元素中上下左右居中？"><a href="#如何让一个元素在父元素中上下左右居中？" class="headerlink" title="如何让一个元素在父元素中上下左右居中？"></a>如何让一个元素在父元素中上下左右居中？</h2><p>父相子绝 子分部向左向上移动本身宽度和高度的一半<br>父盒设为 display:flex 子元素横向居中，纵向居中<br>父相子绝，子元素所有定位为0，margin设置auto自适应。</p>
+<h2 id="Flex布局"><a href="#Flex布局" class="headerlink" title="Flex布局"></a>Flex布局</h2><p>采用flex布局的容器共有六个属性。flex-direction（项目排列方向）、flex-wrap、flex-flow、justify-content、align-items、align-content</p>
+<h2 id="js数组去重"><a href="#js数组去重" class="headerlink" title="js数组去重"></a>js数组去重</h2><p>利用set()    return  […new Set(arr)];【需要环境支持ES6】<br>创建一个空Map数据结构，遍历需要去重的数组，把数组的每一个元素作为key存到Map中。由于Map中不会出现相同的key值，所以最终得到的就是去重后的结果。<br>forEach + indexOf</p>
+<h2 id="http与https的区别"><a href="#http与https的区别" class="headerlink" title="http与https的区别"></a>http与https的区别</h2><p>1、HTTP是超文本传输协议，信息是明文传输，HTTPS是具有安全性的SSL加密传输协议。<br>2、HTTPS协议需要ca申请证书，一般免费证书少，因而需要一定费用。<br>3、HTTP和HTTPS使用的是完全不同的连接方式，用的端口也不一样。前者是80，后者是443。<br>4、HTTP连接是无状态的，HTTPS协议是由SSL+HTTP协议构建的可进行加密传输、身份认证的网络协议，安全性高于HTTP协议。</p>
+<h2 id="js中数组排序（冒泡、快速、插入）"><a href="#js中数组排序（冒泡、快速、插入）" class="headerlink" title="js中数组排序（冒泡、快速、插入）"></a>js中数组排序（冒泡、快速、插入）</h2><p>冒泡：一个循环嵌套另一个循环 两两比较<br>插入：将要排序的数组分成两部分，每次从后面的部分取出索引最小的元素插入到前一部分的适当位置<br>选择：将第一个元素和其他元素作比较，检查完所有的元素后，最小的放在第一个位置，接下来再开始从第二个元素开始，重复以上一直到最后<br>快速：以一个数为基准(中间的数)，比基准小的放到左边，比基准大的放到右边，而每个小的数组又可以继续看成更小的两个数组，一直递归下去，直到数组长度大小最大为2。<br>归并：将一个数组反复二分为两个小数组，直到每个数组只有一个元素；其次是“治”，从最小数组开始，两两按大小顺序合并，直到并为原始数组大小<br>堆排序：</p>
+<h2 id="排序算法的使用场景："><a href="#排序算法的使用场景：" class="headerlink" title="排序算法的使用场景："></a>排序算法的使用场景：</h2><p>n较小用直接插入和直接选择<br>若文件初始状态基本有序：直接插入、冒泡<br>若n较大，则应采用时间复杂度为O(nlgn)的排序方法：快速排序、堆排序或归并排序</p>
+<h2 id="CSS3的新特性"><a href="#CSS3的新特性" class="headerlink" title="CSS3的新特性"></a>CSS3的新特性</h2><p>Flex(容器默认存在两根轴：水平的主轴和垂直的交叉轴)、border-radius、transition<br>Transition:过度动画效果 duration timing-function</p>
+<h2 id="二分查找（有序数组）"><a href="#二分查找（有序数组）" class="headerlink" title="二分查找（有序数组）"></a>二分查找（有序数组）</h2><p>将要查找的值每次与中间值比较，大于中间值，则在右边进行相同的查找，小于中间值则在左边进行比较查找，找到返回索引值，没找到返回-1。</p>
+<h2 id="Vue组件化的理解和优化"><a href="#Vue组件化的理解和优化" class="headerlink" title="Vue组件化的理解和优化"></a>Vue组件化的理解和优化</h2><p>Vue应用可以抽象为一个组件树，它是由一个个组件组成的。组件是可复用的 Vue 实例<br>组件化能提高开发效率，方便重复使用（复用），简化调试步骤，提升项目可维护性，便于多人协同开发<br>使用场景：通用、业务、页面<br>优化：如果项目规模较大就要细分组件，包括布局的封装，按钮，表单，提示框，轮播等。要求复用性高。<br>封装：props\slot\event</p>
+<h2 id="ES6新增"><a href="#ES6新增" class="headerlink" title="ES6新增"></a>ES6新增</h2><p>箭头函数、let/const、async+await、Promise对象(resolve,reject)、map</p>
+<h2 id="XSS-CSRF"><a href="#XSS-CSRF" class="headerlink" title="XSS CSRF"></a>XSS CSRF</h2><p>Xss攻击即跨站脚本攻击。指的是攻击者往Web页面里插入恶意 html标签或者javascript代码。可以获取到用户的cookie、sessionID等<br>预防：首先，避免直接在cookie 中泄露用户隐私，例如email、密码等等。</p>
+<h2 id="生命周期（有多个事件钩子）vue2"><a href="#生命周期（有多个事件钩子）vue2" class="headerlink" title="生命周期（有多个事件钩子）vue2"></a>生命周期（有多个事件钩子）vue2</h2><p>从页面开始创建到销毁等一系列过程，称之为 Vue 的生命周期。<br>它可以总共分为8个阶段：创建前/后, 载入前/后,更新前/后,销毁前/销毁后。<br>页面加载触发beforeCreate, created, beforeMount, mounted</p>
+<h2 id="什么是“3次握手，4次挥手"><a href="#什么是“3次握手，4次挥手" class="headerlink" title="什么是“3次握手，4次挥手"></a>什么是“3次握手，4次挥手</h2><p>TCP是一种面向连接的单播协议，在发送数据前，通信双方必须在彼此间建立一条连接。所谓的“连接”，其实是客户端和服务器的内存里保存的一份关于对方的信息，如ip地址、端口号等。<br>TCP可以看成是一种字节流，它会处理IP层或以下的层的丢包、重复以及错误问题。在连接的建立过程中，双方需要交换一些连接的参数。这些参数可以放在TCP头部。<br>TCP提供了一种可靠、面向连接、字节流、传输层的服务，采用三次握手建立一个连接。采用4次挥手来关闭一个连接。<br>“3次握手”的作用就是双方都能明确自己和对方的收、发能力是正常的。</p>
+<h2 id="正向代理和反向代理"><a href="#正向代理和反向代理" class="headerlink" title="正向代理和反向代理"></a>正向代理和反向代理</h2>
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
     <link itemprop="mainEntityOfPage" href="https://frankfrankye.github.io/2022/07/25/regex%E5%AE%9D%E5%85%B8/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -176,7 +276,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2022-07-31 21:26:25" itemprop="dateModified" datetime="2022-07-31T21:26:25+08:00">2022-07-31</time>
+                <time title="Modified: 2022-09-20 21:06:01" itemprop="dateModified" datetime="2022-09-20T21:06:01+08:00">2022-09-20</time>
               </span>
 
           
@@ -197,13 +297,17 @@
 <p>这两句都是新建了一个内容为 xyz 的正则表达式对象，第一种这么简单就别想着用new了吧~</p>
 <h2 id="2-实例方法"><a href="#2-实例方法" class="headerlink" title="2. 实例方法"></a>2. 实例方法</h2><ul>
 <li>test(‘params’)  返回一个布尔值，表示当前模式是否能匹配参数字符串</li>
-<li>exec(‘’) 返回匹配结果，如果发现匹配返回一个数组 成员就是匹配成功的字符串，否则会返回null<br>除此之外，exec返回的数组还包含了两个属性 input （整个原字符串）和 index（匹配成功的开始位置）<h2 id="3-字符串相关方法"><a href="#3-字符串相关方法" class="headerlink" title="3.字符串相关方法"></a>3.字符串相关方法</h2>实例方法在实际开发中其实用的没这么多，真正用的多的还是以下几种字符串的方法</li>
+<li>exec(‘’) 返回匹配结果，如果发现匹配返回一个数组 成员就是匹配成功的字符串，否则会返回null<br>除此之外，exec返回的数组还包含了两个属性 input （整个原字符串）和 index（匹配成功的开始位置）</li>
+</ul>
+<h2 id="3-字符串相关方法"><a href="#3-字符串相关方法" class="headerlink" title="3.字符串相关方法"></a>3.字符串相关方法</h2><p>实例方法在实际开发中其实用的没这么多，真正用的多的还是以下几种字符串的方法</p>
+<ul>
 <li>match() 对字符串进行匹配，返回匹配结果，与exec()比较相似，匹配总是从字符串的第一个字符开始</li>
 <li>search()  返回第一个满足条件的匹配结果在字符串中的位置，如果没有就返回-1</li>
 <li>replace(a, b)    接受两个值，第一个是要取代内容的位置（可以用search找出来），第二个是替换的内容 ； 取代的是第一个匹配到的值<br>replace中的第二个参数还可以是一个函数——<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">&#x27;3 and 5&#x27;.replace(/[0-9]+/g,function (match) &#123;  </span><br><span class="line">    return 2 * match</span><br><span class="line">&#125;)</span><br><span class="line">// &quot;6 and 10&quot;</span><br></pre></td></tr></table></figure>
 值得一提的是第二个参数可以用 $ 符号来指代替换的内容<br>比如 $n 代表的是匹配成功的第n组内容， n是从1开始的自然数<br>其他更多的运用可以自行查看文章底部链接</li>
-<li>split()  按照正则规则分割字符串，返回一个由分割后的各个部分组成的数组<h2 id="4-匹配规则"><a href="#4-匹配规则" class="headerlink" title="4.匹配规则"></a>4.匹配规则</h2>这就是重头戏了</li>
+<li>split()  按照正则规则分割字符串，返回一个由分割后的各个部分组成的数组</li>
 </ul>
+<h2 id="4-匹配规则"><a href="#4-匹配规则" class="headerlink" title="4.匹配规则"></a>4.匹配规则</h2><p>这就是重头戏了</p>
 <ol>
 <li>点字符（.）匹配除回车、换行、行分隔符和段分隔符的所有字符 （/c.t/ 匹配c和t之间任意一个字符）</li>
 <li>位置字符（^）：表示字符串的开始位置  ； ($) ：字符串的结束位置<br>e.g /^test/ test必须出现在字符串的开始位置</li>
@@ -215,16 +319,11 @@
 <li>\w 相当于【0-9a-zA-Z_】</li>
 <li>\W </li>
 <li>\s 匹配空格</li>
-<li>\S <h3 id="重复类"><a href="#重复类" class="headerlink" title="重复类"></a>重复类</h3>{n}代表重复几次 {n,m}表示重复不少于n次，不多于m次<h3 id="量词符"><a href="#量词符" class="headerlink" title="量词符"></a>量词符</h3></li>
-<li>？出现0次或1次</li>
-<li><ul>
+<li>\S <h3 id="重复类"><a href="#重复类" class="headerlink" title="重复类"></a>重复类</h3>{n}代表重复几次 {n,m}表示重复不少于n次，不多于m次<h3 id="量词符"><a href="#量词符" class="headerlink" title="量词符"></a>量词符</h3>？出现0次或1次</li>
 <li>出现0次或多次</li>
 </ul>
-</li>
-<li><ul>
+<ul>
 <li>出现一次或多次<h3 id="修饰符"><a href="#修饰符" class="headerlink" title="修饰符"></a>修饰符</h3>修饰符一般都放在正则表达式的末尾<br>g修饰符 全局匹配<br>i 修饰符 忽略大小写<br>m修饰符 多行模式，会识别换行符</li>
-</ul>
-</li>
 </ul>
 <p>链接：<br><a target="_blank" rel="noopener" href="https://javascript.ruanyifeng.com/stdlib/regexp.html">阮一峰网络博客</a><br><a target="_blank" rel="noopener" href="https://jex.im/regulex">regulex</a><br><a target="_blank" rel="noopener" href="https://regexper.com/">refexper</a><br><a target="_blank" rel="noopener" href="https://www.debuggex.com/">debuggex</a></p>
 
@@ -830,7 +929,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">8</span>
+          <span class="site-state-item-count">9</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
